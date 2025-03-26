@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot - Donation App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://donorbox.org/nonprofit-blog/wp-content/uploads/2018/02/how-to-get-donations.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
+        }
+        h1 {
+            color: #d63384;
+        }
+        .chatbox {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .user-message {
+            text-align: right;
+            color: white;
+            background: #d63384;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 70%;
+            margin: 5px;
+        }
+        .bot-message {
+            text-align: left;
+            color: black;
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            max-width: 70%;
+            margin: 5px;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #d63384;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 data-key="chatbot_title">AI Chatbot Assistance</h1>
+        <div class="chatbox" id="chatbox">
+            <div class="bot-message">Hello! How can I assist you today?</div>
+        </div>
+        <input type="text" id="userInput" placeholder="Type your message..." data-key="chat_placeholder">
+        <button onclick="sendMessage()" data-key="send">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let userInput = document.getElementById("userInput").value;
+            if (!userInput.trim()) return;
+            
+            let chatbox = document.getElementById("chatbox");
+            
+            // Display user message
+            let userMessage = document.createElement("div");
+            userMessage.className = "user-message";
+            userMessage.textContent = userInput;
+            chatbox.appendChild(userMessage);
+            
+            // Auto-scroll to bottom
+            chatbox.scrollTop = chatbox.scrollHeight;
+            
+            // Generate bot response
+            setTimeout(() => {
+                let botMessage = document.createElement("div");
+                botMessage.className = "bot-message";
+                botMessage.textContent = getBotResponse(userInput);
+                chatbox.appendChild(botMessage);
+                chatbox.scrollTop = chatbox.scrollHeight;
+            }, 1000);
+
+            document.getElementById("userInput").value = "";
+        }
+
+        function getBotResponse(input) {
+            input = input.toLowerCase();
+            if (input.includes("donate")) return "You can donate food, clothes, books, and money. Visit our donation page!";
+            if (input.includes("how")) return "You can register as a donor or receiver through our website.";
+            if (input.includes("contact")) return "You can contact us at support@donationapp.com.";
+            return "I'm still learning! Ask something related to donations.";
+        }
+
+        // Language Translations
+        const translations = {
+            en: {
+                chatbot_title: "AI Chatbot Assistance",
+                chat_placeholder: "Type your message...",
+                send: "Send"
+            },
+            hi: {
+                chatbot_title: "एआई चैटबॉट सहायता",
+                chat_placeholder: "अपना संदेश टाइप करें...",
+                send: "भेजें"
+            },
+            mr: {
+                chatbot_title: "एआय चॅटबॉट सहाय्य",
+                chat_placeholder: "आपला संदेश टाइप करा...",
+                send: "पाठवा"
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.querySelectorAll("[data-key]").forEach(element => {
+                element.textContent = translations[lang][element.getAttribute("data-key")];
+            });
+        }
+    </script>
+</body>
+</html>

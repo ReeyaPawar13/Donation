@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation App - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://donorbox.org/nonprofit-blog/wp-content/uploads/2018/02/how-to-get-donations.jpg') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .navbar .links {
+            display: flex;
+        }
+        .navbar a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #d63384;
+            font-weight: bold;
+            padding: 10px;
+        }
+        .language-selector {
+            margin-right: 20px;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
+        }
+        h1 {
+            color: #d63384;
+        }
+        .hidden {
+            display: none;
+        }
+        input, button {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .google-btn {
+            background-color: #d63384;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="links">
+            <a href="home.html" data-key="home">Home</a>
+            <a href="about.html" data-key="about">About Us</a>
+            <a href="receiver.html" data-key="receiver">Receiver Request</a>
+            <a href="donor.html" data-key="donor">Donor Registration</a>
+            <a href="deliveryboyinfo.html" data-key="delivery">Delivery Boy Info</a>
+            <a href="chatboat.html" data-key="aichatboat">AI Chatboat Assistance</a>
+            <a href="smartimpacttracker.html" data-key="smarttracker">Smart Impact Tracker</a>
+        </div>
+        <select class="language-selector" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="hi">हिंदी</option>
+            <option value="mr">मराठी</option>
+        </select>
+    </div>
+    
+    <div class="container">
+        <h1>Welcome to Donation App</h1>
+        <p class="slogan">"Giving is not just about making a donation, it's about making a difference."</p>
+        <p class="info">Join our platform to donate food, clothes, money, and books to those in need.</p>
+        
+               
+        <button onclick="showForm('login')">Login</button>
+        <button onclick="showForm('signup')">Sign Up</button>
+        
+        <div id="loginForm" class="hidden">
+            <h3>Login</h3>
+            <input type="text" id="loginUser" placeholder="Enter Email or Phone Number" required>
+            <input type="password" id="loginPassword" placeholder="Enter Password" required>
+            <button onclick="login()">Login</button>
+            <br>
+            <button class="google-btn" onclick="googleLogin()">Continue with Google</button>
+        </div>
+        
+        <div id="signupForm" class="hidden">
+            <h3>Sign Up</h3>
+            <input type="text" id="signupUser" placeholder="Enter Email or Phone Number" required>
+            <input type="password" id="signupPassword" placeholder="Enter Password" required>
+            <button onclick="signUp()">Sign Up</button>
+            <br>
+            <button class="google-btn" onclick="googleLogin()">Continue with Google</button>
+        </div>
+    </div>
+    
+    <script>
+        let users = {};
+        
+        function showForm(type) {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('signupForm').classList.add('hidden');
+            
+            if (type === 'login') {
+                document.getElementById('loginForm').classList.remove('hidden');
+            } else {
+                document.getElementById('signupForm').classList.remove('hidden');
+            }
+        }
+        
+        function login() {
+            let user = document.getElementById('loginUser').value;
+            let password = document.getElementById('loginPassword').value;
+            
+            if (!user || !password) {
+                alert("Please enter Email/Phone Number and Password.");
+                return;
+            }
+            
+            if (users.hasOwnProperty(user) && users[user] === password) {
+                alert("Successfully Logged In: " + user);
+            } else {
+                alert("Incorrect Email/Phone or Password. Try Again.");
+            }
+        }
+        
+        function signUp() {
+            let user = document.getElementById('signupUser').value;
+            let password = document.getElementById('signupPassword').value;
+            
+            if (!user || !password) {
+                alert("Please enter Email/Phone Number and Password.");
+                return;
+            }
+            
+            if (users.hasOwnProperty(user)) {
+                alert("Account already exists. Please log in.");
+            } else {
+                users[user] = password;
+                alert("Successfully Signed Up: " + user);
+            }
+        }
+        
+        function googleLogin() {
+            setTimeout(() => {
+                alert("Select your Google Account");
+                setTimeout(() => {
+                    alert("Successfully Logged In / Account Created with Google");
+                }, 1000);
+            }, 1000);
+        }
+    
+
+
+
+        const translations = {
+            en: {
+                home: "Home",
+                about: "About Us",
+                receiver: "Receiver Request",
+                donor: "Donor Registration",
+                delivery: "Delivery Boy Info",
+                welcome: "Welcome to Donation App",
+                slogan: "Giving is not just about making a donation, it's about making a difference.",
+                info: "Join our platform to donate food, clothes, money, and books to those in need.",
+                login: "Login",
+                signup: "Sign Up",
+                email_placeholder: "Enter Email or Phone Number",
+                password_placeholder: "Enter Password",
+                google_login: "Continue with Google"
+            },
+            hi: {
+                home: "होम",
+                about: "हमारे बारे में",
+                receiver: "प्राप्तकर्ता अनुरोध",
+                donor: "दाता पंजीकरण",
+                delivery: "डिलीवरी बॉय जानकारी",
+                welcome: "डोनेशन ऐप में आपका स्वागत है",
+                slogan: "दान केवल पैसा देने के बारे में नहीं है, यह बदलाव लाने के बारे में है।",
+                info: "हमारे प्लेटफॉर्म से भोजन, कपड़े, पैसा और किताबें दान करें।",
+                login: "लॉग इन करें",
+                signup: "साइन अप करें",
+                email_placeholder: "ईमेल या फोन नंबर दर्ज करें",
+                password_placeholder: "पासवर्ड दर्ज करें",
+                google_login: "गूगल के साथ जारी रखें"
+            },
+            mr: {
+                home: "मुख्यपृष्ठ",
+                about: "आमच्याबद्दल",
+                receiver: "स्वीकर्ता विनंती",
+                donor: "दाता नोंदणी",
+                delivery: "वितरण मुलाची माहिती",
+                welcome: "डोनेशन अॅपमध्ये आपले स्वागत आहे",
+                slogan: "दान फक्त देण्याबद्दल नाही, ते बदल घडवण्याबद्दल आहे।",
+                info: "आमच्या प्लॅटफॉर्मवरून अन्न, कपडे, पैसे आणि पुस्तके दान करा।",
+                login: "लॉगिन करा",
+                signup: "साइन अप करा",
+                email_placeholder: "ईमेल किंवा फोन नंबर टाका",
+                password_placeholder: "पासवर्ड टाका",
+                google_login: "गूगल सह पुढे चला"
+            }
+        };
+        function changeLanguage(lang) {
+            document.querySelectorAll("[data-key]").forEach(element => {
+                element.textContent = translations[lang][element.getAttribute("data-key")];
+            });
+        }
+
+            </script>
+
+    
+</body>
+</html>
